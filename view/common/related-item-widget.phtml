@@ -1,0 +1,91 @@
+<?php
+    $this->addForm->setAttribute('action', $this->url('admin'). '/item-relation/' . $itemRelation->id() . '/add');
+?>
+
+<div class="widget-container">
+    <h4><?php echo $itemRelation->label(); ?></h4>
+
+    <table class="item-list-table">
+        <?php foreach($relatedItems as $relatedItem): ?>
+        <tr>
+            <td class="item-list-icons">
+                <a  href="<?php echo $this->url('admin') . '/item-relation/delete-item/' . $this->resource->id() . '/' .$relatedItem->id(); ?>"
+                    class="o-icon-delete icon-spacing"
+                    title="Delete"
+                    onclick="return confirm('Delete item \'<?php  echo $relatedItem->value($itemRelation->labelProperty()->term()) ?>\'?')"
+                ></a>                                    
+            </td>
+            <td>
+                <a href="<?php echo $relatedItem->url('edit'); ?>"
+                    class="o-icon-edit icon-spacing"
+                    title="Edit"
+                ></a>                   
+                <a href="<?php echo $relatedItem->url() ?>">
+                    <?php echo $relatedItem->value($itemRelation->labelProperty()->term()) ?>
+                </a>
+                <?php
+                    if ($relatedItem)
+                        $code = $relatedItem->value($itemRelation->codeProperty()->term());
+                    if ($code) {
+                        echo '<span class="code">[ ' . $code . ' ]</span>';
+                    }
+                ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+
+    </table>
+
+    <?php if ($itemRelation): ?>
+        <a href="#" class='relItemForm<?php echo $itemRelation->id() ?>'>Add related item ⇣</a>    
+        <div class="add-item-form" style="display: none;">
+            <?php echo $this->form()->openTag($addForm); ?>
+            <?php echo $this->formCollection($addForm, false); ?>
+            <?php echo $this->form()->closeTag(); ?>        
+        </div>
+
+        <script>
+            $('.relItemForm<?php echo $itemRelation->id() ?>').click(function(e) {
+                e.preventDefault()
+                const form = e.currentTarget.nextElementSibling
+                if (form.style.display === "none") {
+                    form.style.display = "block"
+                    e.currentTarget.innerHTML = "Add related item ⇡"
+                } else {
+                    form.style.display = "none"
+                    e.currentTarget.innerHTML = "Add related item ⇣"
+                }        
+            })
+        </script>        
+    <?php endif; ?>
+
+</div>
+
+<style>
+    .item-list-table {
+        border: 0;
+    }
+    .widget-container {
+        margin: 0.5em;
+        margin-top: 3em;
+        padding: 1em;
+        border-radius: 5px;
+        background-color: rgba(0,0,0,0.04);
+    }
+    .add-item-form {
+        padding-top: 0.5em;
+        display: none;
+    }    
+    .item-list-icons {
+        vertical-align: top;
+        width: 2em;
+    }   
+    .code {
+        margin-left: 0.5em;
+        font-size: 0.8em;
+    } 
+    .icon-spacing {
+        margin-right: 1em;        
+    }
+</style>
+

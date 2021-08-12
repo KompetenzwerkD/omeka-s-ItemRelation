@@ -1,0 +1,10 @@
+<?php
+    $this->form->setAttribute('action', 'item-relation/' . $this->resource->id() . '/delete');
+    $this->form->setButtonLabel('Confirm delete'); // @translate
+?>
+
+<div id="delete">
+    <h3>Delete <?php echo $this->res_type ?></h3>
+    <p>Are you sure you want to delete the sub item relation "<?php echo $this->resource->label(); ?>"? 
+    <?php echo $this->form($this->form); ?>
+</div>

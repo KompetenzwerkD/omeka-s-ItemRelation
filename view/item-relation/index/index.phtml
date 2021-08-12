@@ -1,0 +1,54 @@
+<div id="page-actions">
+    <?php echo $this->hyperlink('Add new item relation', $this->url('admin/item-relation/add'), ['class' => 'button']); ?>
+</div>
+
+
+<h1>SubItems</h1>
+
+<?php if ($itemRelations): ?>
+<table>
+    <thead>
+        <th>Label</th>
+        <th>Relation</th>
+        <th>Connecting property</th>
+    </thead>
+    <tbody>
+    <?php foreach($itemRelations as $itemRelation): ?>
+    <tr>
+        <td><?php echo $itemRelation->label() ?>
+            <ul class="actions concept-actions">
+                <li>
+                    <a class='o-icon-edit' href='<?php echo $itemRelation->url('edit') ?>'></a>
+                </li>
+                <li>
+                    <a href="#"
+                    data-sidebar-content-url="item-relation/delete-confirm/<?php echo $itemRelation->id() ?>""
+                    class="o-icon-delete sidebar-content"
+                    aria-label="Delete"
+                    title="Delete"></a>                            
+                </li>
+            </ul>
+        </td>
+        <td><?php echo $itemRelation->parentResourceTemplate()->label() ?> → <?php echo $itemRelation->childResourceTemplate()->label() ?></td>
+        <td><?php echo $itemRelation->connectingProperty()->term() ?></td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>
+
+
+<div class="sidebar">
+    <a href="#"
+        class="sidebar-close o-icon-close"
+        aria-label="Close"
+        title="Close"></a>
+    <div class="sidebar-content"></div>
+</div>
+
+
+<style>
+    .concept-actions {
+        float:right;
+    }    
+</style>

@@ -10,6 +10,8 @@ This module allows the definition if hierarchial item relations and simplifies t
 
 ### Installation
 
+Download the repo and copy its content into the Omeka S `modules`directory. The directory name must be `ItemRelation`. Then install the module in the admin panel under `Admin > Modules`.
+
 ### Define item relations
 
 You can define item relations in the admin panel under `Modules > Item Relations`. Item relations are always hierarchically defined between two resoruce templates.
@@ -18,6 +20,8 @@ You can define item relations in the admin panel under `Modules > Item Relations
 
 To create a new relation, press the `Add new item relation` button in the top right and fill out the form. 
 
+|    |   |
+| --- | --- |
 | Label | Name of the relation, is also used as the widget title |
 | Parent resoruce template | |
 | Child resource template | Resource template of the related items |

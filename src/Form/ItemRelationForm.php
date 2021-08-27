@@ -2,6 +2,8 @@
 namespace ItemRelation\Form;
 
 use Laminas\Form\Form;
+use Laminas\Form\Element\Checkbox;
+use Laminas\Form\Element\Radio;
 
 class ItemRelationForm extends Form
 {
@@ -107,5 +109,64 @@ class ItemRelationForm extends Form
             ]
         ]);        
 
+        $this->add([
+            'name' => 'o:show_form',
+            'type' => Radio::class,
+            'options' => [
+                'label' => 'Show form',
+                'info' => 'Display add item form in widget',
+                'value_options' => [
+                    true  => 'yes',
+                    false => 'no',
+                ]
+            ],
+            'attributes' => [
+                'required' => true,
+            ]
+        ]);
+
+        $this->add([
+            'name' => 'o:show_image',
+            'type' => Radio::class,
+            'options' => [
+                'label' => 'Show image',
+                'info' => 'Display image from item media ',
+                'value_options' => [
+                    true  => 'yes',
+                    false => 'no',
+                ]                
+            ],
+            'attributes' => [
+                'required' => true,
+            ]
+        ]);
+
+        $this->add([
+            'name' => 'o:layout',
+            'type' => Radio::class,
+            'options' => [
+                'label' => 'Widget layout',
+                'info' => '',
+                'value_options' => [
+                    'list'  => 'list',
+                    'box' => 'box',
+                ]                
+            ],
+            'attributes' => [
+                'required' => true,
+            ]
+        ]);        
+
+        $this->add([
+            'type' => 'textarea',
+            'name' => 'o:display_properties' ,
+            'options' => [
+                'label' => 'Display properties',
+                'info' => 'Enter property terms to show in widget (list layout).'
+            ],
+            'attributes' => [
+                'required' => false
+            ]
+        ]);        
     }
 }

@@ -5,58 +5,120 @@
 <div class="widget-container">
     <h4><?php echo $itemRelation->label(); ?></h4>
 
-    <table class="item-list-table">
-        <?php foreach($relatedItems as $relatedItem): ?>
-        <tr>
-            <td class="item-list-icons">
-                <a  href="<?php echo $this->url('admin') . '/item-relation/delete-item/' . $this->resource->id() . '/' .$relatedItem->id(); ?>"
-                    class="o-icon-delete icon-spacing"
-                    title="Delete"
-                    onclick="return confirm('Delete item \'<?php  echo $relatedItem->value($itemRelation->labelProperty()->term()) ?>\'?')"
-                ></a>                                    
-            </td>
-            <td>
-                <a href="<?php echo $relatedItem->url('edit'); ?>"
-                    class="o-icon-edit icon-spacing"
-                    title="Edit"
-                ></a>                   
-                <a href="<?php echo $relatedItem->url() ?>">
-                    <?php echo $relatedItem->value($itemRelation->labelProperty()->term()) ?>
-                </a>
-                <?php
-                    if ($relatedItem)
-                        $code = $relatedItem->value($itemRelation->codeProperty()->term());
-                    if ($code) {
-                        echo '<span class="code">[ ' . $code . ' ]</span>';
-                    }
-                ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
 
-    </table>
+    <?php if ($itemRelation->layout() == "list"): ?>
+        <table class="item-list-table">
+            <?php foreach($relatedItems as $relatedItem): ?>
+            <tr>
+                <td class="item-list-icons">
+                    <a  href="<?php echo $this->url('admin') . '/item-relation/delete-item/' . $this->resource->id() . '/' .$relatedItem->id(); ?>"
+                        class="o-icon-delete icon-spacing"
+                        title="Delete"
+                        onclick="return confirm('Delete item \'<?php  echo $relatedItem->value($itemRelation->labelProperty()->term()) ?>\'?')"
+                    ></a>                                    
+                </td>
+                <td class="item-list-icons">
+                    <a href="<?php echo $relatedItem->url('edit'); ?>"
+                        class="o-icon-edit icon-spacing"
+                        title="Edit"
+                    ></a>           
+                </td>        
+                <?php if($itemRelation->showImage()): ?>
+                    <td class="image-cell">
+                        <?php 
+                            $media = $relatedItem->primaryMedia();
+                            $url = $relatedItem->url('');
+
+                            if ($media != null) {
+                                $imgUrl = $media->thumbnailUrl('medium');
+                                echo("<div'><a href='$url'><img src='$imgUrl' /></a></div>");
+                            }
+                        ?>
+                    </td>
+                <?php endif; ?>
+                <td class="title-cell">
+                    <a href="<?php echo $relatedItem->url() ?>">
+                        <?php echo $relatedItem->value($itemRelation->labelProperty()->term()) ?>
+                    </a>
+                </td>
+                <?php 
+                    $props = $itemRelation->displayProperties();
+                    $propsArray = explode("<br />", nl2br($props));
+                ?>
+                <?php foreach($propsArray as $prop): ?>
+                    <td>
+                    <?php
+                        $value = $relatedItem->value(trim($prop));
+                        if ($value) {
+                            echo '<span class="code">' . $value . '</span>';
+                        }
+                    ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+            <?php endforeach; ?>
+
+        </table>
+    <?php endif; ?>
+
+
+    <?php if ($itemRelation->layout() == "box"): ?>
+        <div class="grid">
+            <?php foreach($relatedItems as $relatedItem): ?>
+            <div class="item-container">
+
+                    <?php if($itemRelation->showImage()): ?>
+                            <?php 
+                                $media = $relatedItem->primaryMedia();
+                                $url = $relatedItem->url('');
+
+                                if ($media != null) {
+                                    $imgUrl = $media->thumbnailUrl('medium');
+                                    echo("<div><a href='$url'><img src='$imgUrl' /></a></div>");
+                                }
+                            ?>
+                    <?php endif; ?>
+
+                    <a href="<?php echo $relatedItem->url() ?>">
+                        <?php echo $relatedItem->value($itemRelation->labelProperty()->term()) ?>
+                    </a>
+                    <?php
+                        if ($relatedItem)
+                            $code = $relatedItem->value($itemRelation->codeProperty()->term());
+                        if ($code) {
+                            echo '<span class="code">[ ' . $code . ' ]</span>';
+                        }
+                    ?>
+            </div>
+
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
 
     <?php if ($itemRelation): ?>
-        <a href="#" class='relItemForm<?php echo $itemRelation->id() ?>'>Add related item ⇣</a>    
-        <div class="add-item-form" style="display: none;">
-            <?php echo $this->form()->openTag($addForm); ?>
-            <?php echo $this->formCollection($addForm, false); ?>
-            <?php echo $this->form()->closeTag(); ?>        
-        </div>
+        <?php if ($itemRelation->showForm()): ?>
+            <a href="#" class='relItemForm<?php echo $itemRelation->id() ?>'>Add related item ⇣</a>    
+            <div class="add-item-form" style="display: none;">
+                <?php echo $this->form()->openTag($addForm); ?>
+                <?php echo $this->formCollection($addForm, false); ?>
+                <?php echo $this->form()->closeTag(); ?>        
+            </div>
 
-        <script>
-            $('.relItemForm<?php echo $itemRelation->id() ?>').click(function(e) {
-                e.preventDefault()
-                const form = e.currentTarget.nextElementSibling
-                if (form.style.display === "none") {
-                    form.style.display = "block"
-                    e.currentTarget.innerHTML = "Add related item ⇡"
-                } else {
-                    form.style.display = "none"
-                    e.currentTarget.innerHTML = "Add related item ⇣"
-                }        
-            })
-        </script>        
+            <script>
+                $('.relItemForm<?php echo $itemRelation->id() ?>').click(function(e) {
+                    e.preventDefault()
+                    const form = e.currentTarget.nextElementSibling
+                    if (form.style.display === "none") {
+                        form.style.display = "block"
+                        e.currentTarget.innerHTML = "Add related item ⇡"
+                    } else {
+                        form.style.display = "none"
+                        e.currentTarget.innerHTML = "Add related item ⇣"
+                    }        
+                })
+            </script>        
+        <?php endif; ?>
     <?php endif; ?>
 
 </div>
@@ -80,12 +142,25 @@
         vertical-align: top;
         width: 2em;
     }   
+    .image-cell {
+        width: 220px;
+    }
+    .title-cell {
+        width: 12em;
+    }
     .code {
         margin-left: 0.5em;
-        font-size: 0.8em;
+        font-size: 0.9em;
     } 
     .icon-spacing {
         margin-right: 1em;        
     }
+    .item-container {
+        vertical-align: center;
+        width: 250px;
+    }
+    .grid {
+        display:grid;
+        grid-auto-flow: column;
+    }
 </style>
-

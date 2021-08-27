@@ -66,10 +66,10 @@ class ItemRelation extends \ItemRelation\Entity\ItemRelation implements \Doctrin
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'codeProperty', 'codeTemplate', 'owner'];
+            return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'codeProperty', 'codeTemplate', 'showForm', 'showImage', 'layout', 'displayProperties', 'owner'];
         }
 
-        return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'codeProperty', 'codeTemplate', 'owner'];
+        return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'codeProperty', 'codeTemplate', 'showForm', 'showImage', 'layout', 'displayProperties', 'owner'];
     }
 
     /**
@@ -365,6 +365,72 @@ class ItemRelation extends \ItemRelation\Entity\ItemRelation implements \Doctrin
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCodeTemplate', [$template]);
 
         return parent::setCodeTemplate($template);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getShowForm()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getShowForm', []);
+
+        return parent::getShowForm();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setShowForm($showForm = true)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setShowForm', [$showForm]);
+
+        return parent::setShowForm($showForm);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getShowImage()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getShowImage', []);
+
+        return parent::getShowImage();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setShowImage($showImage = true)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setShowImage', [$showImage]);
+
+        return parent::setShowImage($showImage);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLayout()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLayout', []);
+
+        return parent::getLayout();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setLayout($layout = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLayout', [$layout]);
+
+        return parent::setLayout($layout);
     }
 
     /**

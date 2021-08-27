@@ -23,6 +23,7 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
         $labelProperty = null;
         $codeProperty = null;
         $owner = null;
+        $props = null;
 
         if ($this->parentResourceTemplate()) {
             $parentResourceTemplate = $this->parentResourceTemplate()->getReference();
@@ -44,6 +45,14 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
         {
             $owner = $this->owner()->getReference();
         }
+
+        if ($this->displayProperties()) {
+            $props = $this->displayProperties();
+            $props = nl2br($props);
+            $propsArray = explode('<br />', $props);
+            $propsArray = array_map('trim', $propsArray);
+        }
+
         return [
             'o:label' => $this->label(),
             'o:parent_resource_template' => $parentResourceTemplate,
@@ -52,7 +61,11 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
             'o:label_property' => $labelProperty,
             'o:code_property' => $codeProperty,
             'o:code_template' => $this->codeTemplate(),
-            'o:owner' => $owner
+            'o:owner' => $owner,
+            'o:show_form' => $this->showForm(),
+            'o:show_image' => $this->showImage(),
+            'o:layout' => $this->layout(),
+            'o:display_properties' => $propsArray,
         ];
     }
 
@@ -101,4 +114,24 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
         return $this->getAdapter('users')
             ->getRepresentation($this->resource->getOwner());
     }    
+
+    public function showForm() 
+    {
+        return $this->resource->getShowForm();
+    }
+    
+    public function showImage()
+    {
+        return $this->resource->getShowImage();
+    }
+
+    public function layout() 
+    {
+        return $this->resource->getLayout();
+    }
+
+    public function displayProperties()
+    {
+        return $this->resource->getDisplayProperties();
+    }
 }

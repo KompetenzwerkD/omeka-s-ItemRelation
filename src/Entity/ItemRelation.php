@@ -57,6 +57,26 @@ class ItemRelation extends AbstractEntity
      */
     protected $codeTemplate;
 
+    /**
+     * @Column(type="boolean",  nullable=true)
+     */
+    protected $showForm;
+
+    /**
+     * @Column(type="boolean",  nullable=true)
+     */
+    protected $showImage;    
+
+    /**
+     * @Column(length=190, nullable=true)
+     */
+    protected $layout;    
+
+
+    /**
+     * @Column(length=190, nullable=true)
+     */
+    protected $displayProperties;    
     
     /**
      * @ManyToOne(targetEntity="Omeka\Entity\User")
@@ -147,5 +167,37 @@ class ItemRelation extends AbstractEntity
     public function setCodeTemplate($template)
     {
         $this->codeTemplate = $template;
+    }
+
+    public function getShowForm() {
+        return $this->showForm;
+    }
+
+    public function setShowForm($showForm = true) {
+        $this->showForm = $showForm;
+    }
+
+    public function getShowImage() {
+        return $this->showImage;
+    }
+
+    public function setShowImage($showImage = true) {
+        $this->showImage = $showImage;
+    }
+
+    public function getLayout() {
+        return $this->layout;
+    }
+
+    public function setLayout($layout = null) {
+        $this->layout = $layout;
+    }
+
+    public function getDisplayProperties() {
+        return $this->displayProperties;
+    }
+
+    public function setDisplayProperties($displayProperties = null) {
+        $this->displayProperties = $displayProperties;
     }
 }

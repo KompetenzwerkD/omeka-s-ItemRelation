@@ -105,6 +105,8 @@ class IndexController extends AbstractActionController
             $data['o:connecting_property'] = $data['o:connecting_property'] ? $data['o:connecting_property']->id() : null;
             $data['o:label_property'] = $data['o:label_property'] ? $data['o:label_property']->id() : null;
             $data['o:code_property'] = $data['o:code_property'] ? $data['o:code_property']->id() : null;
+
+            $data['o:display_properties'] = $itemRelation->displayProperties();
             $form->setData($data);
         }
 

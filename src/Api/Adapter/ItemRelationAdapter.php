@@ -75,6 +75,24 @@ class ItemRelationAdapter extends AbstractEntityAdapter
             $prop = $this->getValue($request, 'properties', 'o:code_property');
             $entity->setCodeProperty($prop);
         }
+
+        if ($this->shouldHydrate($request, 'o:show_form'))
+        {
+            $entity->setShowForm($request->getValue('o:show_form'));
+        }
+        if ($this->shouldHydrate($request, 'o:show_image'))
+        {
+            $entity->setShowImage($request->getValue('o:show_image'));
+        }
+        if ($this->shouldHydrate($request, 'o:layout'))
+        {
+            $entity->setLayout($request->getValue('o:layout'));
+        }
+
+        if ($this->shouldHydrate($request, 'o:display_properties')) {
+            $entity->setDisplayProperties($request->getValue('o:display_properties'));
+        }
+        
     }
 
 

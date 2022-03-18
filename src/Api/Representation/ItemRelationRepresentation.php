@@ -21,9 +21,11 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
         $childResourceTemplate = null;
         $connectingProperty = null;
         $labelProperty = null;
+        $labelItemSet = null;
         $codeProperty = null;
         $owner = null;
         $props = null;
+        $propsArray=[];
 
         if ($this->parentResourceTemplate()) {
             $parentResourceTemplate = $this->parentResourceTemplate()->getReference();
@@ -36,6 +38,9 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
         }
         if ($this->labelProperty()) {
             $labelProperty = $this->labelProperty()->getReference();
+        }
+        if($this->labelItemSet()) {
+            $labelItemSet = $this->labelItemSet()->getReference();
         }
         if ($this->codeProperty()) {
             $codeProperty = $this->codeProperty()->getReference();
@@ -59,6 +64,7 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
             'o:child_resource_template' => $childResourceTemplate,
             'o:connecting_property' => $connectingProperty,
             'o:label_property' => $labelProperty,
+            'o:label_item_set' => $labelItemSet,
             'o:code_property' => $codeProperty,
             'o:code_template' => $this->codeTemplate(),
             'o:owner' => $owner,
@@ -101,6 +107,12 @@ class ItemRelationRepresentation extends AbstractEntityRepresentation
     {
         return $this->getAdapter('properties')
             ->getRepresentation($this->resource->getLabelProperty());
+    }
+
+    public function labelItemSet()
+    {
+        return $this->getAdapter('item_sets')
+            ->getRepresentation($this->resource->getLabelItemSet());
     }
 
     public function codeProperty()

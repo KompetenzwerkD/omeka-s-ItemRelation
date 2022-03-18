@@ -80,7 +80,21 @@ class ItemRelationForm extends Form
                 'data-placeholder' => 'Select a property', // @translate
             ],
         ]);     
-        
+
+        $this->add([
+            'name' => 'o:label_item_set',
+            'type' => 'Omeka\Form\Element\ItemSetSelect',
+            'options' => [
+                'label' => 'Label item set', // @translate
+                'info' => 'Select label item set', // @translate
+                'empty_option' => '',
+            ],
+            'attributes' => [
+                'required' => false,
+                'class' => 'chosen-select',
+                'data-placeholder' => 'Select an item set', // @translate
+            ],
+        ]);          
         
         $this->add([
             'name' => 'o:code_property',
@@ -168,5 +182,12 @@ class ItemRelationForm extends Form
                 'required' => false
             ]
         ]);        
+
+        $inputFilter = $this->getInputFilter();
+        $inputFilter->add([
+            'name' => 'o:label_item_set',
+            'allow_empty' => true,
+        ]);
+
     }
 }

@@ -47,6 +47,12 @@ class ItemRelation extends AbstractEntity
     protected $labelProperty;
 
     /**
+     * @ManyToOne(targetEntity="Omeka\Entity\ItemSet")
+     * @JoinColumn(onDelete="SET NULL")
+     */
+    protected $labelItemSet;
+
+    /**
      * @ManyToOne(targetEntity="Omeka\Entity\Property")
      * @JoinColumn(onDelete="SET NULL")
      */
@@ -127,6 +133,16 @@ class ItemRelation extends AbstractEntity
     public function setLabelProperty($prop = null)
     {
         $this->labelProperty = $prop;
+    }
+
+    public function getLabelItemSet() 
+    {
+        return $this->labelItemSet;
+    }
+
+    public function setLabelItemSet(ItemSet $itemSet = null)
+    {
+        $this->labelItemSet = $itemSet;
     }
 
     public function getCodeProperty()

@@ -70,6 +70,11 @@ class ItemRelationAdapter extends AbstractEntityAdapter
             $prop = $this->getValue($request, 'properties', 'o:label_property');
             $entity->setLabelProperty($prop);
         }
+        if ($this->shouldHydrate($request, 'o:label_item_set')) 
+        {
+            $itemSet = $this->getValue($request, 'item_sets', 'o:label_item_set');
+            $entity->setLabelItemSet($itemSet);
+        }        
         if ($this->shouldHydrate($request, 'o:code_property'))
         {
             $prop = $this->getValue($request, 'properties', 'o:code_property');

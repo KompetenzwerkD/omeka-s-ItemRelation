@@ -27,6 +27,14 @@ class AddRelatedItemForm extends Form
         ]);
 
         $this->add([
+            'name' => 'o:type',
+            'type' => Hidden::class,
+            'attributes' => [
+                'value' => 'text'
+            ]
+        ]);        
+
+        $this->add([
             'name' => 'submit',
             'type' => Submit::class,
             'attributes' => [

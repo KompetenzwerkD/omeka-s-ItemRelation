@@ -4,6 +4,7 @@ namespace ItemRelation\View\Helper;
 use ItemRelation\Entity\ItemRelation;
 use ItemRelation\Api\Representation\ItemRelationRepresentation;
 use ItemRelation\Form\AddRelatedItemForm;
+use ItemRelation\Form\AddRelatedItemDropdownForm;
 use Laminas\View\Helper\AbstractHelper;
 use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 
@@ -19,8 +20,16 @@ class RelatedItemsWidget extends AbstractHelper
     public function __invoke(ItemRelationRepresentation $itemRelation) 
     {
         $view = $this->getView();
-        $form = $this->formElementManager->get(AddRelatedItemForm::class);
+        
+        if ($itemRelation->labelItemSet() != null) {
+            $form = $this->formElementManager->get(AddRelatedItemDropdownForm::class);
+            $form->setItemSetId(3);
+            $form->init($itemRelation->labelItemSet()->id());
+        }
+        else
+            $form = $this->formElementManager->get(AddRelatedItemForm::class);
         $form->get('o:parent_item')->setValue($view->resource->id());
+
 
         $rsp = $view->api()->search('items', [
             'resource_template_id' =>  $itemRelation->childResourceTemplate()->id(),

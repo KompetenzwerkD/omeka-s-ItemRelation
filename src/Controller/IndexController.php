@@ -34,6 +34,7 @@ class IndexController extends AbstractActionController
                 $formData['o:child_resource_template'] = ['o:id' => $formData['o:child_resource_template']];
                 $formData['o:connecting_property'] = ['o:id' => $formData['o:connecting_property']];
                 $formData['o:label_property'] = ['o:id' => $formData['o:label_property']];
+                $formData['o:label_item_set'] = $formData['o:label_item_set'] ? ['o:id' => $formData['o:label_item_set']] : null;
                 $formData['o:code_property'] = ['o:id' => $formData['o:code_property']];
 
                 $response = $this->api($form)->create('item_relations', $formData);
@@ -88,6 +89,7 @@ class IndexController extends AbstractActionController
             $data['o:child_resource_template'] = ['o:id' => $data['o:child_resource_template']];
             $data['o:connecting_property'] = ['o:id' => $data['o:connecting_property']];
             $data['o:label_property'] = ['o:id' => $data['o:label_property']];
+            $data['o:label_item_set'] = $data['o:label_item_set'] ? ['o:id' => $data['o:label_item_set']] : null;
             $data['o:code_property'] = ['o:id' => $data['o:code_property']];
             $rsp = $this->api()->update('item_relations', $itemRelation->id(), $data);
             if ($rsp) {
@@ -104,6 +106,7 @@ class IndexController extends AbstractActionController
             $data['o:child_resource_template'] = $data['o:child_resource_template'] ? $data['o:child_resource_template']->id() : null;
             $data['o:connecting_property'] = $data['o:connecting_property'] ? $data['o:connecting_property']->id() : null;
             $data['o:label_property'] = $data['o:label_property'] ? $data['o:label_property']->id() : null;
+            $data['o:label_item_set'] = $data['o:label_item_set'] ? $data['o:label_item_set']->id() : null;
             $data['o:code_property'] = $data['o:code_property'] ? $data['o:code_property']->id() : null;
 
             $data['o:display_properties'] = $itemRelation->displayProperties();
@@ -124,6 +127,7 @@ class IndexController extends AbstractActionController
 
             $relation = $this->api()->read('item_relations', $id)->getContent();
             $parentItem = $this->api()->read('items', $data['o:parent_item'])->getContent();
+            $type = $data['o:type'];
 
             $resourceClass = $relation->childResourceTemplate()->resourceClass();
             $labelProperty = $relation->labelProperty();
@@ -178,6 +182,24 @@ class IndexController extends AbstractActionController
                     ],
                 ],                    
             ];
+
+            if ($type == "text") {
+                $item[$labelProperty->term()] = [
+                    [
+                        'type' => 'literal',
+                        'property_id' => $labelProperty->id(),
+                        '@value' => $data['o:title'],
+                    ],
+                ];
+            } else {
+                $item[$labelProperty->term()] = [
+                    [
+                        'type' => 'resource:item',
+                        'property_id' => $labelProperty->id(),
+                        'value_resource_id' => $data['o:title'],
+                    ],
+                ];                
+            }
 
             $newItem = $this->api()->create('items', $item);
 

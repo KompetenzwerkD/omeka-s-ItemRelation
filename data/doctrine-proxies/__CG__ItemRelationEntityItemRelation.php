@@ -66,10 +66,10 @@ class ItemRelation extends \ItemRelation\Entity\ItemRelation implements \Doctrin
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'codeProperty', 'codeTemplate', 'showForm', 'showImage', 'layout', 'displayProperties', 'owner'];
+            return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'labelItemSet', 'codeProperty', 'codeTemplate', 'showForm', 'showImage', 'layout', 'displayProperties', 'owner'];
         }
 
-        return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'codeProperty', 'codeTemplate', 'showForm', 'showImage', 'layout', 'displayProperties', 'owner'];
+        return ['__isInitialized__', 'id', 'label', 'parentResourceTemplate', 'childResourceTemplate', 'connectingProperty', 'labelProperty', 'labelItemSet', 'codeProperty', 'codeTemplate', 'showForm', 'showImage', 'layout', 'displayProperties', 'owner'];
     }
 
     /**
@@ -282,6 +282,28 @@ class ItemRelation extends \ItemRelation\Entity\ItemRelation implements \Doctrin
     /**
      * {@inheritDoc}
      */
+    public function getLabelItemSet()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getLabelItemSet', []);
+
+        return parent::getLabelItemSet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setLabelItemSet($prop = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLabelItemSet', [$prop]);
+
+        return parent::setLabelItemSet($prop);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getCodeProperty()
     {
 
@@ -431,6 +453,28 @@ class ItemRelation extends \ItemRelation\Entity\ItemRelation implements \Doctrin
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLayout', [$layout]);
 
         return parent::setLayout($layout);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDisplayProperties()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDisplayProperties', []);
+
+        return parent::getDisplayProperties();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDisplayProperties($displayProperties = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDisplayProperties', [$displayProperties]);
+
+        return parent::setDisplayProperties($displayProperties);
     }
 
     /**

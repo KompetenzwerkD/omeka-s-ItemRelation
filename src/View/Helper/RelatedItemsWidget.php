@@ -23,7 +23,7 @@ class RelatedItemsWidget extends AbstractHelper
         
         if ($itemRelation->labelItemSet() != null) {
             $form = $this->formElementManager->get(AddRelatedItemDropdownForm::class);
-            $form->setItemSetId(3);
+            $form->setItemSetId($itemRelation->labelItemSet()->id());
             $form->init($itemRelation->labelItemSet()->id());
         }
         else
